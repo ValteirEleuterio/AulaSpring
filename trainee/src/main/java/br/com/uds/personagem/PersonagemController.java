@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/personagens")
@@ -23,5 +24,16 @@ public class PersonagemController {
     @GetMapping
     public Set<Personagem> listar(){
         return this.personagemService.listar();
+    }
+
+    @GetMapping("/findBy")
+    public Personagem obter(@RequestParam("id")UUID id){
+        return this.personagemService.obter(id);
+    }
+
+    @DeleteMapping
+    public ResponseEntity remover(@RequestParam("id")UUID id){
+        this.personagemService.remover(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
